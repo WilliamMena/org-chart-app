@@ -8,7 +8,7 @@ const getChildren = ({ node, nodes }) =>
 const Level = ({ nodes, parent }) => {
   const name = parent.last_name ? (
     <div className="name">
-      {parent.first_name} {parent.last_name}
+      {parent.first_name} {parent.last_name} - ID: {parent.id} - P ID: {parent.parent_id}
     </div>
   ) : null;
 
