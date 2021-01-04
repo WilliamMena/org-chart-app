@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import NodeForm from './components/nodeForm.jsx'
 
 const hasChildren = ({ node, nodes }) =>
   nodes.some((item) => item.parent_id === node.id);
@@ -23,6 +24,7 @@ const Level = ({ nodes, parent }) => {
         {getChildren({ node: parent, nodes }).map((child) => (
           <li key={child.id}>
             <Level nodes={nodes} parent={child} />
+            <NodeForm nodes={nodes} current={child}/>
           </li>
         ))}
       </ul>
@@ -50,7 +52,7 @@ const App = () => {
     <>
       <h1>Org Chart</h1>
       {nodes ? (
-        <Level nodes={nodes} parent={nodes.find((node) => node.root)} />
+          <Level nodes={nodes} parent={nodes.find((node) => node.root)} />
       ) : (
         "loading..."
       )}
