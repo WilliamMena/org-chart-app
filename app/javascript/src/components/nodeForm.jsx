@@ -3,12 +3,16 @@ import React from 'react';
 const NodeForm = ({nodes, current}) => {
 
     return (
-        <form hidden id={`form${current.id}`}>
+        <form id={`form${current.id}`}>
             <label>
 
             Who is this users new boss?
             <select>
-                { nodes.map((x) => <option key={x.id} value={x.id}>{`${x.first_name} ${x.last_name} ID: ${x.id}`}</option>
+                {/* Filter out current boss */}
+                { nodes.filter((n) => n.id != current.parent_id)
+                    // filter out current user
+                    .filter((n) => n.id != current.id)
+                    .map((x) => <option key={x.id} value={x.id}>{`${x.first_name} ${x.last_name} ID: ${x.id}`}</option>
                 )}
             </select>
             <br/>
