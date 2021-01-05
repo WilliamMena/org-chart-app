@@ -16,6 +16,10 @@ class NodesController < ApplicationController
   def update
     @node = Node.find(params[:id])
 
+    if node_param["parent_id"] == @node.id || node_param["parent_id"] == @node.parent_id
+      render json: { message: "Can not make this change." }, status: 400
+    end
+
     # byebug
     if node_param["bring_team"]
       @node.parent_id = node_param["parent_id"]
