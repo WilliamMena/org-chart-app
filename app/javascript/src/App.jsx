@@ -6,6 +6,18 @@ const hasChildren = ({ node, nodes }) =>
 const getChildren = ({ node, nodes }) =>
   nodes.filter((item) => item.parent_id === node.id);
 
+const handleButton = (e) => {
+  // console.log(`form${e.target.value}`)
+  // console.log(e);
+
+  var x = document.getElementById(`form${e.target.value}`)
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+  
 const Level = ({ nodes, parent }) => {
   let name = parent.last_name ? (
     <div className="name">
@@ -18,7 +30,9 @@ const Level = ({ nodes, parent }) => {
       "div",
       {className: 'name'},
       name,
-      <NodeForm nodes={nodes} current={parent}/>
+      <button value={parent.id} onClick={handleButton}>Edit</button>,
+      <NodeForm nodes={nodes} current={parent}/>,
+      <br/>
     )
   }
 

@@ -57,7 +57,7 @@ const NodeForm = ({nodes, current}) => {
     })
 
     return (
-        <form id={`form${current.id}`} onSubmit={handleSubmit}>
+        <form id={`form${current.id}`} style={{display: 'none'}} onSubmit={handleSubmit}>
             <label>
 
             Who is this users new boss?
