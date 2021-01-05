@@ -16,6 +16,12 @@ class NodesController < ApplicationController
   def update
     @node = Node.find(params[:id])
 
+    if node_param["make_root_user"]
+      make_root(@node)
+      render json: { message: "Node successfully updated." }, status: 200
+      return
+    end
+
     if node_param["parent_id"] == @node.id || node_param["parent_id"] == @node.parent_id
       render json: { message: "Can not make this change." }, status: 400
       return
@@ -42,7 +48,18 @@ class NodesController < ApplicationController
  
  private
  def node_param
-    params.require(:node).permit(:parent_id, :bring_team)
+    params.require(:node).permit(:parent_id, :bring_team, :make_root_user)
+ end
+
+ def make_root(user)
+    old_root = Node.find_by(:root => true)
+    old_root.parent_id = user.id
+    old_root.root = false;
+    old_root.save
+
+    user.parent_id = nil
+    user.root = true
+    user.save
  end
 
 end

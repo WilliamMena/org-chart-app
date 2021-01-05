@@ -4,7 +4,6 @@ const NodeForm = ({nodes, current}) => {
 
     const [parentID, setParentID] = useState(1);
     const [bringTeam, setBringTeam] = useState(false);
-    // const [rootUser, setRootUser] = useState(false);
     const [makeRootUser, setMakeRootUser] = useState(false);
 
     const handleSubmit = (e) => {
@@ -55,10 +54,6 @@ const NodeForm = ({nodes, current}) => {
     // Make default value parentID the first value in the node list.
     useEffect(() => {
         setParentID(filteredNodes[0].id);
-
-        // if (!current.parent_id) {
-        //     setRootUser(true);
-        // }
     })
 
     return (
