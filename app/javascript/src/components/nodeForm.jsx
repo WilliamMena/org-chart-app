@@ -1,23 +1,63 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const NodeForm = ({nodes, current}) => {
 
+    const [parentID, setParentID] = useState(1);
+    const [bringTeam, setBringTeam] = useState(false);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const data = { 
+            "node": {
+                "parent_id": parentID,
+                "bring_team": bringTeam
+            }
+         };
+
+        fetch(`http://localhost:3000/nodes/${current.id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(data => {
+        console.log('Success:', data);
+        })
+        .catch((error) => {
+        console.error('Error:', error);
+        });
+    }
+
+    const filteredNodes = nodes.filter((n) => n.id != current.parent_id)
+                // filter out current user
+                .filter((n) => n.id != current.id)
+
+    // Make default value parentID the first value in the node list.
+    useEffect(() => {
+        setParentID(filteredNodes[0].id);
+    })
+
     return (
-        <form id={`form${current.id}`}>
+        <form id={`form${current.id}`} onSubmit={handleSubmit}>
             <label>
 
             Who is this users new boss?
-            <select>
+            <select onChange={e => setParentID(e.target.value)}>
                 {/* Filter out current boss */}
-                { nodes.filter((n) => n.id != current.parent_id)
-                    // filter out current user
-                    .filter((n) => n.id != current.id)
-                    .map((x) => <option key={x.id} value={x.id}>{`${x.first_name} ${x.last_name} ID: ${x.id}`}</option>
+                { filteredNodes.map((x) => <option key={x.id} value={x.id}>{`${x.first_name} ${x.last_name} ID: ${x.id}`}</option>
+
                 )}
             </select>
             <br/>
+            Bring team with you?
+            <input type="checkbox" onChange={e => setBringTeam(e.target.checked)}/>
+
+            {/* <br/>
             This user now runs this whole Org
-            <input type="checkbox"/>
+            <input type="checkbox"/> */}
             </label>
 
             <br/>

@@ -10,6 +10,7 @@ const Level = ({ nodes, parent }) => {
   const name = parent.last_name ? (
     <div className="name">
       {parent.first_name} {parent.last_name} - ID: {parent.id} - P ID: {parent.parent_id}
+      <NodeForm nodes={nodes} current={parent}/>
     </div>
   ) : null;
 
@@ -24,7 +25,6 @@ const Level = ({ nodes, parent }) => {
         {getChildren({ node: parent, nodes }).map((child) => (
           <li key={child.id}>
             <Level nodes={nodes} parent={child} />
-            <NodeForm nodes={nodes} current={child}/>
           </li>
         ))}
       </ul>
