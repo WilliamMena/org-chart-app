@@ -18,6 +18,7 @@ class NodesController < ApplicationController
 
     if node_param["parent_id"] == @node.id || node_param["parent_id"] == @node.parent_id
       render json: { message: "Can not make this change." }, status: 400
+      return
     end
 
     # byebug
