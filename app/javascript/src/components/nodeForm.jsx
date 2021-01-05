@@ -4,14 +4,19 @@ const NodeForm = ({nodes, current}) => {
 
     const [parentID, setParentID] = useState(1);
     const [bringTeam, setBringTeam] = useState(false);
+    // const [rootUser, setRootUser] = useState(false);
+    const [makeRootUser, setMakeRootUser] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        // console.log(makeRootUser);
+
         const data = { 
             "node": {
                 "parent_id": parentID,
-                "bring_team": bringTeam
+                "bring_team": bringTeam,
+                "make_root_user": makeRootUser
             }
          };
 
@@ -35,9 +40,25 @@ const NodeForm = ({nodes, current}) => {
                 // filter out current user
                 .filter((n) => n.id != current.id)
 
+    const handleMakeRootUser = (e) => {
+        
+        if (!makeRootUser) {
+            alert("If this is selected upon submission, all other attributes will be ignored.")
+            setMakeRootUser(true);
+        } else {
+            setMakeRootUser(false);
+        }
+        // console.log(makeRootUser);
+        // debugger
+    }
+
     // Make default value parentID the first value in the node list.
     useEffect(() => {
         setParentID(filteredNodes[0].id);
+
+        // if (!current.parent_id) {
+        //     setRootUser(true);
+        // }
     })
 
     return (
@@ -55,9 +76,10 @@ const NodeForm = ({nodes, current}) => {
             Bring team with you?
             <input type="checkbox" onChange={e => setBringTeam(e.target.checked)}/>
 
-            {/* <br/>
+            <br/>
+            <br/>
             This user now runs this whole Org
-            <input type="checkbox"/> */}
+            <input type="checkbox" onChange={handleMakeRootUser}/>
             </label>
 
             <br/>
