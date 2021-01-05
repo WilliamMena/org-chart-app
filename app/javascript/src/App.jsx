@@ -7,19 +7,27 @@ const getChildren = ({ node, nodes }) =>
   nodes.filter((item) => item.parent_id === node.id);
 
 const Level = ({ nodes, parent }) => {
-  const name = parent.last_name ? (
+  let name = parent.last_name ? (
     <div className="name">
       {parent.first_name} {parent.last_name} - ID: {parent.id} - P ID: {parent.parent_id}
-      <NodeForm nodes={nodes} current={parent}/>
     </div>
   ) : null;
+
+  if (!parent.root) {
+    name = React.createElement(
+      "div",
+      {className: 'name'},
+      name,
+      <NodeForm nodes={nodes} current={parent}/>
+    )
+  }
 
   if (!hasChildren({ nodes, node: parent })) {
     return name;
   }
 
   return (
-    <>
+    <>  
       {name}
       <ul>
         {getChildren({ node: parent, nodes }).map((child) => (
