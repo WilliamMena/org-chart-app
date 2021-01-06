@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 const NodeForm = ({nodes, current}) => {
-
-    const [parentID, setParentID] = useState(1);
+    // parentID created below to avoid too many renders.
+    // const [parentID, setParentID]
     const [bringTeam, setBringTeam] = useState(false);
     const [makeRootUser, setMakeRootUser] = useState(false);
 
@@ -18,6 +18,8 @@ const NodeForm = ({nodes, current}) => {
                 "make_root_user": makeRootUser
             }
          };
+
+        //  console.log(data);
 
         fetch(`http://localhost:3000/nodes/${current.id}`, {
         method: 'PUT',
@@ -39,6 +41,9 @@ const NodeForm = ({nodes, current}) => {
                 // filter out current user
                 .filter((n) => n.id != current.id)
 
+    // Created here to utilize filteredNodes and avoid extra rendering
+    const [parentID, setParentID] = useState(filteredNodes[0].id);
+
     const handleMakeRootUser = (e) => {
         
         if (!makeRootUser) {
@@ -47,14 +52,7 @@ const NodeForm = ({nodes, current}) => {
         } else {
             setMakeRootUser(false);
         }
-        // console.log(makeRootUser);
-        // debugger
     }
-
-    // Make default value parentID the first value in the node list.
-    useEffect(() => {
-        setParentID(filteredNodes[0].id);
-    })
 
     return (
         <form id={`form${current.id}`} style={{display: 'none'}} onSubmit={handleSubmit}>
