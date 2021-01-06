@@ -13,3 +13,43 @@
  *= require_tree .
  *= require_self
  */
+ * {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  button:focus {outline:0;}
+
+  .nameButton {
+    background: transparent;
+    border: 0;
+    font-size: 16px;
+    border-radius: 4px 4px 4px 0;
+    transition-duration: 0.4s;
+  }
+
+  .nameButton:hover {
+    background-color: #FF5666; /* Green */
+    color: white;
+  }
+
+  form {
+    padding: 10px 0 0 10px;
+    border-left: 2px solid #00FDDC;
+  }
+
+  select {
+      margin-left: 10px;
+  }
+
+  .nodeForm label {
+    display: inline-block;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+  
+  .nodeForm input {
+    vertical-align: middle;
+  }
+
+
+

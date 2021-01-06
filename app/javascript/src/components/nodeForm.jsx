@@ -38,6 +38,7 @@ const NodeForm = ({nodes, current}) => {
         alert('Error:', error);
         });
 
+        // debugger;
         location.reload();
     }
 
@@ -45,8 +46,8 @@ const NodeForm = ({nodes, current}) => {
                 // filter out current user
                 .filter((n) => n.id != current.id)
                 .sort(function(a, b) {
-                    var nameA = a.first_name.toUpperCase(); // ignore upper and lowercase
-                    var nameB = b.first_name.toUpperCase(); // ignore upper and lowercase
+                    var nameA = a.first_name.toUpperCase();
+                    var nameB = b.first_name.toUpperCase();
                     if (nameA < nameB) {
                       return -1;
                     }
@@ -70,8 +71,12 @@ const NodeForm = ({nodes, current}) => {
         }
     }
 
+    const myStyle = {
+        display: "none"
+    }
+
     return (
-        <form id={`form${current.id}`} style={{display: 'none'}} onSubmit={handleSubmit}>
+        <form className="nodeForm" id={`form${current.id}`} style={myStyle} onSubmit={handleSubmit}>
             <label>
 
             Who is this users new boss?
@@ -82,12 +87,12 @@ const NodeForm = ({nodes, current}) => {
                 )}
             </select>
             <br/>
-            Bring team with you?
+            Bring your team with you?
             <input type="checkbox" onChange={e => setBringTeam(e.target.checked)}/>
 
             <br/>
             <br/>
-            This user now runs this whole Org
+            This user now runs this whole Organization
             <input type="checkbox" onChange={handleMakeRootUser}/>
             </label>
 
