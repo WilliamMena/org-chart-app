@@ -31,15 +31,31 @@ const NodeForm = ({nodes, current}) => {
         .then(response => response.json())
         .then(data => {
         console.log('Success:', data);
+        alert('Success. Refreshing chart.');
         })
         .catch((error) => {
         console.error('Error:', error);
+        alert('Error:', error);
         });
+
+        location.reload();
     }
 
     const filteredNodes = nodes.filter((n) => n.id != current.parent_id)
                 // filter out current user
                 .filter((n) => n.id != current.id)
+                .sort(function(a, b) {
+                    var nameA = a.first_name.toUpperCase(); // ignore upper and lowercase
+                    var nameB = b.first_name.toUpperCase(); // ignore upper and lowercase
+                    if (nameA < nameB) {
+                      return -1;
+                    }
+                    if (nameA > nameB) {
+                      return 1;
+                    }
+                
+                    return 0;
+                  });
 
     // Created here to utilize filteredNodes and avoid extra rendering
     const [parentID, setParentID] = useState(filteredNodes[0].id);
