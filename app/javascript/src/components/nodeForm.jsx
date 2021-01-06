@@ -82,7 +82,7 @@ const NodeForm = ({nodes, current}) => {
             Who is this users new boss?
             <select onChange={e => setParentID(e.target.value)}>
                 {/* Filter out current boss */}
-                { filteredNodes.map((x) => <option key={x.id} value={x.id}>{`${x.first_name} ${x.last_name} ID: ${x.id}`}</option>
+                { filteredNodes.map((x) => <option key={x.id} value={x.id}>{`${x.first_name} ${x.last_name} - ID# ${x.id}`}</option>
 
                 )}
             </select>
@@ -98,7 +98,7 @@ const NodeForm = ({nodes, current}) => {
 
             <br/>
             <br/>
-            <input type="submit" value="Submit" />
+            <input className = "submitButton" type="submit" value="Submit" />
         </form>
     )
 }

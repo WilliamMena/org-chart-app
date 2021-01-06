@@ -24,7 +24,7 @@ const Level = ({ nodes, parent }) => {
 
   let name = parent.last_name ? (
     <div className="name">
-      {parent.first_name} {parent.last_name} - ID: {parent.id} - P ID: {parent.parent_id}
+      {parent.first_name} {parent.last_name} - ID: {parent.id}
     </div>
   ) : null;
 
@@ -32,7 +32,7 @@ const Level = ({ nodes, parent }) => {
     name = React.createElement(
       "div",
       {className: 'name'},
-      <button className="nameButton" value={parent.id} onClick={handleButton}>{parent.first_name} {parent.last_name} - ID: {parent.id} - P ID: {parent.parent_id}</button>,
+      <button className="nameButton" value={parent.id} onClick={handleButton}>{parent.first_name} {parent.last_name} - ID: {parent.id}</button>,
       <NodeForm nodes={nodes} current={parent}/>,
       <br/>
     )
@@ -75,6 +75,9 @@ const App = () => {
   return (
     <>
       <h1>Org Chart</h1>
+      <sub>Click on a member</sub>
+      <br/>
+      <br/>
       {nodes ? (
           <Level nodes={nodes} parent={nodes.find((node) => node.root)} />
       ) : (
